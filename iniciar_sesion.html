@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesion - Learn.Viky</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Icono pequeno que aparece en la pestana del navegador. -->
+    <link rel="icon" href="img/logofoca.png" type="image/x-icon">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="img/logofoca.png" alt="logo foca graduada">
+        </div>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="/learn-viky/index.php">INICIO</a></li>
+                <li><a href="/learn-viky/nosotros.html">NOSOTROS</a></li>
+                <li><a href="/learn-viky/tips.php">TIPS</a></li>
+                <li><a href="/learn-viky/rutinas.php">RUTINAS</a></li>
+                <li><a href="/learn-viky/calendario.php">CALENDARIO</a></li>
+                <li><a href="/learn-viky/perfil.php">PERFIL</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <a href="/learn-viky/iniciar_sesion.html" style="text-decoration: none;">
+                <button class="btn-ins">INICIAR SESION</button>
+            </a>
+            <a href="/learn-viky/registrarse.html" style="text-decoration: none;">
+                <button class="btn-registr">REGISTRARSE</button>
+            </a>
+        </div>
+    </header>
+
+    <main class="iniciar-container">
+        <!-- Tarjeta principal: aqui vive el formulario que manda los datos al controlador PHP. -->
+        <div class="iniciar-background">
+            <div class="iniciar-container-image-form">
+                <img class="inicia-img" src="img/logofoca.png" alt="Logo de Learn.Viky">
+                <h2>Iniciar sesion</h2>
+                <p class="auth-helper">Entra para ver tu perfil, rutinas y calendario.</p>
+            </div>
+
+            <!--
+                action indica que archivo PHP recibe el formulario.
+                method POST envia los datos ocultos en el cuerpo de la solicitud.
+                name debe coincidir con lo que lee iniciar_sesion_controler.php.
+            -->
+            <form class="iniciar-form" action="../learn-viky/backend/controlers/iniciar_sesion_controler.php" method="POST">
+                <label for="completeName">Nombre completo</label>
+                <input placeholder="Escribe tu nombre completo" id="completeName" name="nombre_completo_form" type="text" autocomplete="name" required>
+
+                <label for="password">Contrasena</label>
+                <div class="password-field">
+                    <input placeholder="Escribe tu contrasena" id="password" name="contrasena_form" type="password" autocomplete="current-password" required>
+                    <button type="button" class="password-toggle" data-password-target="password" aria-label="Mostrar contrasena">&#128065;</button>
+                </div>
+
+                <div class="recor-container">
+                    <input type="checkbox" id="recordarme" name="recordarme_form" value="1">
+                    <label for="recordarme">Recordarme</label>
+                </div>
+
+                <div class="olvi-container">
+                    <a href="/learn-viky/registrarse.html">No tengo cuenta todavia</a>
+                </div>
+
+                <input type="submit" class="btn-inst" name="boton_iniciar_sesion" value="INICIAR SESION">
+            </form>
+        </div>
+
+        <!-- Imagen de apoyo del login. La ruta img/... busca dentro de learn-viky/img. -->
+        <div class="iniciar-container-image">
+            <img src="img/chica_estudiandp.png" alt="Estudiante organizando sus tareas">
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h2>LEARN.VIKY</h2>
+                <p>El mejor espacio para aprender, organizarte y mejorar cada dia.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>ENLACES</h3>
+                <a href="/learn-viky/index.php">INICIO</a>
+                <a href="/learn-viky/nosotros.html">NOSOTROS</a>
+                <a href="/learn-viky/tips.php">TIPS</a>
+                <a href="/learn-viky/rutinas.php">RUTINAS</a>
+                <a href="/learn-viky/calendario.php">CALENDARIO</a>
+                <a href="/learn-viky/perfil.php">PERFIL</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>RECURSOS</h3>
+                <a href="/learn-viky/rutinas.php">Rutina de estudio</a>
+                <a href="/learn-viky/tips.php">Tips de aprendizaje</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>CONTACTOS</h3>
+                <p>learn.viky@.com</p>
+                <p>3203848091</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Learn.Viky. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script>
+        // Este bloque hace funcionar el boton del ojo en los campos de contrasena.
+        document.querySelectorAll(".password-toggle").forEach(function (boton) {
+            boton.addEventListener("click", function () {
+                const input = document.getElementById(boton.dataset.passwordTarget);
+                const mostrar = input.type === "password";
+                input.type = mostrar ? "text" : "password";
+                boton.setAttribute("aria-label", mostrar ? "Ocultar contrasena" : "Mostrar contrasena");
+            });
+        });
+    </script>
+</body>
+
+</html>

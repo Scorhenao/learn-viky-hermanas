@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse - Learn.Viky</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Icono pequeno que aparece en la pestana del navegador. -->
+    <link rel="icon" href="img/logofoca.png" type="image/x-icon">
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap");
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="img/logofoca.png" alt="logo foca graduada">
+        </div>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="/learn-viky/index.php">INICIO</a></li>
+                <li><a href="/learn-viky/nosotros.html">NOSOTROS</a></li>
+                <li><a href="/learn-viky/tips.php">TIPS</a></li>
+                <li><a href="/learn-viky/rutinas.php">RUTINAS</a></li>
+                <li><a href="/learn-viky/calendario.php">CALENDARIO</a></li>
+                <li><a href="/learn-viky/perfil.php">PERFIL</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <a href="/learn-viky/iniciar_sesion.html" style="text-decoration: none;">
+                <button class="btn-ins">INICIAR SESION</button>
+            </a>
+            <a href="/learn-viky/registrarse.html" style="text-decoration: none;">
+                <button class="btn-registr">REGISTRARSE</button>
+            </a>
+        </div>
+    </header>
+
+    <main class="register-container">
+        <!-- Tarjeta principal del registro. -->
+        <div class="register-background">
+            <div class="register-container-image-form">
+                <img class="register-img" src="img/logofoca.png" alt="Logo de Learn.Viky">
+                <h2>Registrarse</h2>
+                <p class="auth-helper">Crea tu cuenta y elige como usaras la plataforma.</p>
+            </div>
+
+            <!--
+                enctype multipart/form-data es obligatorio porque los profesores suben un archivo.
+                Sin ese atributo, PHP no recibiria la certificacion del diploma en $_FILES.
+            -->
+            <form action="../learn-viky/backend/controlers/registrarse_controller.php" method="post" class="register-form" enctype="multipart/form-data">
+                <label for="completeName">Nombre completo</label>
+                <input placeholder="Escribe tu nombre completo" id="completeName" name="nombre_completo_form" type="text" autocomplete="name" required>
+
+                <label for="email">Correo electronico</label>
+                <input placeholder="ejemplo@correo.com" id="email" type="email" name="correo_electronico_form" autocomplete="email" required>
+
+                <label for="password">Contrasena</label>
+                <div class="password-field">
+                    <input placeholder="Crea tu contrasena" id="password" type="password" name="contrasena_form" autocomplete="new-password" required>
+                    <button type="button" class="password-toggle" data-password-target="password" aria-label="Mostrar contrasena">&#128065;</button>
+                </div>
+
+                <label for="confirmPassword">Confirmar contrasena</label>
+                <div class="password-field">
+                    <input placeholder="Repite tu contrasena" id="confirmPassword" type="password" name="contrasena_validada_form" autocomplete="new-password" required>
+                    <button type="button" class="password-toggle" data-password-target="confirmPassword" aria-label="Mostrar contrasena">&#128065;</button>
+                </div>
+
+                <label for="perfil">Seleccione perfil</label>
+                <select name="perfil_form" id="perfil" required>
+                    <option value="estudiante">Estudiante</option>
+                    <option value="profesor">Profesor</option>
+                    <option value="administrador">Administrador</option>
+                </select>
+
+                <!-- Estos datos solo son necesarios para validar cuentas de profesor. -->
+                <div id="datos-profesor" class="teacher-fields" hidden>
+                    <label for="cedula">CC</label>
+                    <input placeholder="Numero de documento" id="cedula" name="cedula_form" type="text" inputmode="numeric">
+
+                    <label for="certificacion">Certificacion de diploma</label>
+                    <input id="certificacion" name="certificacion_diploma_form" type="file" accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+
+                <div class="terms-container">
+                    <input type="checkbox" id="terminos" name="terminos_form" value="1" required>
+                    <label for="terminos">Acepto los terminos de uso y la politica de privacidad</label>
+                    <p id="mensaje-error" style="color:red;"></p>
+                </div>
+
+                <input class="btn-registrar" type="submit" name="btn-registrarse" value="REGISTRARSE">
+            </form>
+        </div>
+
+        <!-- Imagen decorativa del registro. Antes no cargaba porque la ruta era /img/... -->
+        <div class="register-container-image">
+            <img src="img/chica_estudiandp.png" alt="Estudiante usando Learn.Viky">
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h2>LEARN.VIKY</h2>
+                <p>El mejor espacio para aprender, organizarte y mejorar cada dia.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>ENLACES</h3>
+                <a href="/learn-viky/index.php">INICIO</a>
+                <a href="/learn-viky/nosotros.html">NOSOTROS</a>
+                <a href="/learn-viky/tips.php">TIPS</a>
+                <a href="/learn-viky/rutinas.php">RUTINAS</a>
+                <a href="/learn-viky/calendario.php">CALENDARIO</a>
+                <a href="/learn-viky/perfil.php">PERFIL</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>RECURSOS</h3>
+                <a href="/learn-viky/rutinas.php">Rutina de estudio</a>
+                <a href="/learn-viky/tips.php">Tips de aprendizaje</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>CONTACTOS</h3>
+                <p>learn.viky@.com</p>
+                <p>3203848091</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Learn.Viky. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../learn-viky/backend/scripts/validar_contrasena.js"></script>
+    <script>
+        // Tomamos del HTML los elementos que vamos a mostrar, ocultar o volver obligatorios.
+        const perfil = document.getElementById("perfil");
+        const datosProfesor = document.getElementById("datos-profesor");
+        const cedula = document.getElementById("cedula");
+        const certificacion = document.getElementById("certificacion");
+
+        // Si el perfil es profesor, pedimos CC y diploma; si no, los ocultamos.
+        function actualizarCamposProfesor() {
+            const esProfesor = perfil.value === "profesor";
+            datosProfesor.hidden = !esProfesor;
+            cedula.required = esProfesor;
+            certificacion.required = esProfesor;
+        }
+
+        // Cada vez que cambie el select, revisamos si hay que mostrar los campos de profesor.
+        perfil.addEventListener("change", actualizarCamposProfesor);
+        actualizarCamposProfesor();
+
+        // Este bloque hace funcionar el boton del ojo en los campos de contrasena.
+        document.querySelectorAll(".password-toggle").forEach(function (boton) {
+            boton.addEventListener("click", function () {
+                const input = document.getElementById(boton.dataset.passwordTarget);
+                const mostrar = input.type === "password";
+                input.type = mostrar ? "text" : "password";
+                boton.setAttribute("aria-label", mostrar ? "Ocultar contrasena" : "Mostrar contrasena");
+            });
+        });
+    </script>
+</body>
+
+</html>
