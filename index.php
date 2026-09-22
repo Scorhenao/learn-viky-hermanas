@@ -17,9 +17,11 @@ $logueado = isset($_SESSION['id_usuario']);
 </head>
 <body>
   <header class="header">
-    <div class="logo">
-      <img src="img/logofoca.png" alt="logo foca graduada">
-    </div>
+    <a href="index.php" class="logo-inicio" aria-label="Ir al inicio">
+      <div class="logo">
+        <img src="img/logofoca.png" alt="logo foca graduada">
+      </div>
+    </a>
 
     <nav class="navbar">
       <ul>
@@ -67,7 +69,19 @@ $logueado = isset($_SESSION['id_usuario']);
       </div>
 
       <div class="home-visual">
-        <img src="img/chica_estudiandp.png" alt="Estudiante organizando sus actividades">
+        <div class="carousel hero-carousel" aria-label="Carrusel de imágenes de Learn.Viky">
+          <button class="carousel-btn prev" type="button" aria-label="Anterior">&#10094;</button>
+          <div class="carousel-track">
+            <img src="img/chica_estudiandp.png" alt="Estudiante organizando su estudio" class="active">
+            <img src="img/chica_estudiando2.jpeg" alt="Estudiante tomando notas en su cuaderno">
+          </div>
+          <button class="carousel-btn next" type="button" aria-label="Siguiente">&#10095;</button>
+        </div>
+        <div class="carousel-dots" aria-label="Indicadores del carrusel">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
       </div>
     </section>
 
@@ -113,12 +127,57 @@ $logueado = isset($_SESSION['id_usuario']);
       <div class="footer-section">
         <h3>CONTACTOS</h3>
         <p>learn.viky@.com</p>
-        <p>3203848091</p>
+        <p>3135287232</p>
       </div>
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 Learn.Viky. Todos los derechos reservados.</p>
     </div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const slides = Array.from(document.querySelectorAll('.carousel-track img'));
+      const dots = Array.from(document.querySelectorAll('.dot'));
+      const prevBtn = document.querySelector('.carousel-btn.prev');
+      const nextBtn = document.querySelector('.carousel-btn.next');
+      let currentIndex = 0;
+      let autoSlide = null;
+
+      if (!slides.length || !prevBtn || !nextBtn || !dots.length) {
+        return;
+      }
+
+      function showSlide(index) {
+        currentIndex = (index + slides.length) % slides.length;
+        slides.forEach((slide, i) => slide.classList.toggle('active', i === currentIndex));
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+      }
+
+      function startAutoSlide() {
+        clearInterval(autoSlide);
+        autoSlide = setInterval(() => showSlide(currentIndex + 1), 4000);
+      }
+
+      prevBtn.addEventListener('click', () => {
+        showSlide(currentIndex - 1);
+        startAutoSlide();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        showSlide(currentIndex + 1);
+        startAutoSlide();
+      });
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          showSlide(index);
+          startAutoSlide();
+        });
+      });
+
+      showSlide(0);
+      startAutoSlide();
+    });
+  </script>
 </body>
 </html>

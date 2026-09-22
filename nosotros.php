@@ -1,17 +1,56 @@
+<?php
+session_start();
+$logueado = isset($_SESSION['id_usuario']);
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=/learn-viky/nosotros.php">
-  <title>Redirigiendo a Nosotros</title>
-  <script>
-    window.location.replace('/learn-viky/nosotros.php');
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros.viky</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/logofoca.png" type="image/x-icon">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+</style>
+
 </head>
 <body>
-  <p>Redirigiendo...</p>
-</body>
-</html>
+<header class="header">
+    <a href="index.php" class="logo-inicio">
+    <div class="logo">
+        <img src="img/logofoca.png" alt="logo foca graduada">
+    </div>
+    </a>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="/learn-viky/index.php">INICIO</a></li>
+            <li><a href="/learn-viky/nosotros.php" class="active">NOSOTROS</a></li>
+            <li><a href="/learn-viky/tips.php">TIPS</a></li>
+            <li><a href="/learn-viky/rutinas.php">RUTINAS</a></li>
+            <li><a href="/learn-viky/calendario.php">CALENDARIO</a></li>
+            <li><a href="/learn-viky/perfil.php">PERFIL</a></li>
+        </ul>
+    </nav>
+
+    <div class="header-actions">
+        <?php if ($logueado) { ?>
+            <a href="/learn-viky/backend/controlers/cerrar_sesion_controller.php" style="text-decoration: none;">
+                <button class="btn-ins">CERRAR SESION</button>
+            </a>
+        <?php } else { ?>
+            <a href="/learn-viky/iniciar_sesion.html" style="text-decoration: none;">
+                <button class="btn-ins">INICIAR SESIÓN</button>
+            </a>
+            <a href="/learn-viky/registrarse.html" style="text-decoration: none;">
+                <button class="btn-registr">REGISTRARSE</button>
+            </a>
+        <?php } ?>
+    </div>
+
+</header>
 
 <main class="about-page">
     <section class="about-hero">
@@ -83,7 +122,7 @@
         <div class="footer-section">
             <h3>ENLACES</h3>
             <a href="/learn-viky/index.php">INICIO</a>
-            <a href="/learn-viky/nosotros.html">NOSOTROS</a>
+            <a href="/learn-viky/nosotros.php">NOSOTROS</a>
             <a href="/learn-viky/tips.php">TIPS</a>
             <a href="/learn-viky/rutinas.php">RUTINAS</a>
             <a href="/learn-viky/calendario.php">CALENDARIO</a>

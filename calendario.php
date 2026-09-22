@@ -75,7 +75,10 @@ $eventos = $consulta_eventos->get_result();
 
 <body>
   <header class="header">
-    <div class="logo"><img src="img/logofoca.png" alt="logo foca graduada"></div>
+    <a href="index.php"class="logo-inicio">
+    <div class="logo">
+      <img src="img/logofoca.png" alt="logo foca graduada"></div>
+      </a>
     <nav class="navbar">
       <ul>
         <li><a href="/learn-viky/index.php">INICIO</a></li>
@@ -172,7 +175,7 @@ $eventos = $consulta_eventos->get_result();
       <div class="footer-section">
         <h3>CONTACTOS</h3>
         <p>learn.viky@.com</p>
-        <p>3203848091</p>
+        <p>3135287232</p>
       </div>
     </div>
     <div class="footer-bottom">

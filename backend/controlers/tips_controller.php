@@ -3,7 +3,7 @@
 // En este proyecto los tips son videos generales de estudio.
 session_start();
 
-// Para crear, editar o eliminar tips se necesita iniciar sesion.
+
 if (!isset($_SESSION['id_usuario'])) {
     header('Location:../../../../learn-viky/iniciar_sesion.html?error=sesion');
     exit;
@@ -16,7 +16,7 @@ if (!isset($_SESSION['perfil']) || !in_array($_SESSION['perfil'], ['administrado
 
 function guardar_imagen_tip()
 {
-    // Si no seleccionaron imagen, devolvemos null para dejar el tip sin imagen nueva.
+    
     if (!isset($_FILES['imagen_form']) || $_FILES['imagen_form']['error'] == UPLOAD_ERR_NO_FILE) {
         return null;
     }
@@ -32,7 +32,7 @@ function guardar_imagen_tip()
         return false;
     }
 
-    // Esta carpeta queda publica dentro de learn-viky para poder mostrar la imagen en tips.php.
+   
     $carpeta_destino = "../../uploads/tips/";
     if (!is_dir($carpeta_destino)) {
         mkdir($carpeta_destino, 0777, true);
@@ -48,11 +48,11 @@ function guardar_imagen_tip()
     return "uploads/tips/" . $nombre_archivo;
 }
 
-// CREAR tip/video.
+
 if (isset($_POST['btn-add-tip'])) {
     include("../connection/abrir_conexion.php");
 
-    // Recibimos titulo, enlace del video y area.
+   
     $titulo_data = trim($_POST['titulo_form']);
     $enlace_data = trim($_POST['enlace_form']);
     $id_area_data = $_POST['id_area_form'];
@@ -76,11 +76,11 @@ if (isset($_POST['btn-add-tip'])) {
     exit;
 }
 
-// ACTUALIZAR tip/video.
+
 if (isset($_POST['btn-editar-tip'])) {
     include("../connection/abrir_conexion.php");
 
-    // Recibimos el id del tip y los nuevos datos.
+    
     $id_tip_data = $_POST['id_tip_form'];
     $titulo_data = trim($_POST['titulo_form']);
     $enlace_data = trim($_POST['enlace_form']);
@@ -116,7 +116,6 @@ if (isset($_POST['btn-editar-tip'])) {
     exit;
 }
 
-// ELIMINAR tip/video.
 if (isset($_POST['btn-eliminar-tip'])) {
     include("../connection/abrir_conexion.php");
 

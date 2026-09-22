@@ -18,14 +18,23 @@ while ($area = mysqli_fetch_assoc($areas_resultado)) {
   $areas_lista[] = $area;
 }
 
-// Buscamos todos los videos guardados.
-$tips = mysqli_query(
-  $conexion,
-  "SELECT t.id_tip, t.titulo, t.enlace, t.imagen, t.id_area_fk, a.nombre_area
+$area_filter = isset($_GET['area']) ? (int) $_GET['area'] : 0;
+
+// Buscamos todos los videos guardados y aplicamos filtro por materia cuando sea necesario.
+$consulta_tips = "SELECT t.id_tip, t.titulo, t.enlace, t.imagen, t.id_area_fk, a.nombre_area
     FROM $tblTips t
-    INNER JOIN $tblAreas a ON t.id_area_fk = a.id_area
-    ORDER BY a.nombre_area, t.titulo"
-);
+    INNER JOIN $tblAreas a ON t.id_area_fk = a.id_area";
+
+if ($area_filter > 0) {
+  $consulta_tips .= " WHERE t.id_area_fk = ?";
+  $tips_stmt = $conexion->prepare($consulta_tips . " ORDER BY a.nombre_area, t.titulo");
+  $tips_stmt->bind_param("i", $area_filter);
+  $tips_stmt->execute();
+  $tips = $tips_stmt->get_result();
+} else {
+  $consulta_tips .= " ORDER BY a.nombre_area, t.titulo";
+  $tips = mysqli_query($conexion, $consulta_tips);
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -43,7 +52,10 @@ $tips = mysqli_query(
 
 <body>
   <header class="header">
-    <div class="logo"><img src="img/logofoca.png" alt="logo foca graduada"></div>
+    <a href="index.php"class="logo-inicio">
+    <div class="logo">
+      <img src="img/logofoca.png" alt="logo foca graduada"></div>
+    </a>
     <nav class="navbar">
       <ul>
         <li><a href="/learn-viky/index.php">INICIO</a></li>
@@ -85,6 +97,18 @@ $tips = mysqli_query(
         <div class="notice error">No tienes permiso para realizar esa accion.</div>
       <?php } ?>
 
+      <form class="materias-filter" method="GET" action="tips.php">
+        <label for="area-filter">Materia</label>
+        <select id="area-filter" name="area" onchange="this.form.submit()">
+          <option value="0">Todas las materias</option>
+          <?php foreach ($areas_lista as $area) { ?>
+            <option value="<?php echo h($area['id_area']); ?>" <?php echo ($area_filter == (int)$area['id_area']) ? 'selected' : ''; ?>>
+              <?php echo h($area['nombre_area']); ?>
+            </option>
+          <?php } ?>
+        </select>
+      </form>
+
       <?php if ($puede_gestionar_tips) { ?>
         <!-- enctype permite enviar archivos, en este caso la imagen del tip. -->
         <form class="form-grid tips-form" action="backend/controlers/tips_controller.php" method="POST" enctype="multipart/form-data">
@@ -105,7 +129,7 @@ $tips = mysqli_query(
 
     <section class="tips-video-grid">
       <?php if (mysqli_num_rows($tips) == 0) { ?>
-        <div class="panel empty">Aun no hay videos guardados.</div>
+        <div class="panel empty">Aun no hay videos guardados para esta materia.</div>
       <?php } ?>
 
       <?php while ($tip = mysqli_fetch_assoc($tips)) { ?>
@@ -171,7 +195,7 @@ $tips = mysqli_query(
       <div class="footer-section">
         <h3>CONTACTOS</h3>
         <p>learn.viky@.com</p>
-        <p>3203848091</p>
+        <p>3135287232</p>
       </div>
     </div>
     <div class="footer-bottom">
